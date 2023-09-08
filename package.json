@@ -1,30 +1,21 @@
 {
-  "name": "patternfly-backstage-theme",
-  "version": "0.0.0",
-  "type": "module",
-  "main": "./dist/patternfly-backstage-theme.umd.cjs",
-  "module": "./dist/patternfly-backstage-theme.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/patternfly-backstage-theme.js",
-      "require": "./dist/patternfly-backstage-theme.umd.cjs"
-    }
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "@backstage/theme": "^0.4.1",
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/lab": "^4.0.0-alpha.61",
-    "@patternfly/react-tokens": "^5.0.1",
-    "@types/node": "^20.5.9",
-    "prettier": "3.0.3",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "vite-plugin-dts": "^3.5.3"
-  }
+    "name": "patternfly-backstage-theme",
+    "version": "0.0.0",
+    "engines": {
+        "node": ">14.15.0",
+        "npm": ">7.17.0"
+    },
+    "devDependencies": {
+        "npm-run-all": "4.1.5"
+    },
+    "scripts": {
+        "build": "npm run build -ws",
+        "clean": "npx -y rimraf node_modules **/dist/ **/node_modules/ package-lock.json && npm i",
+        "lint": "npm run lint -ws",
+        "storybook": "npm run storybook -w storybook"
+    },
+    "workspaces": [
+        "theme",
+        "storybook"
+    ]
 }
