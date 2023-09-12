@@ -1,4 +1,5 @@
 import path from "path";
+import { mergeConfig, splitVendorChunkPlugin } from "vite";
 
 /**
  * This set of stories are the ones that we publish to backstage.io.
@@ -16,7 +17,6 @@ const BACKSTAGE_CORE_STORIES = [
 
 // Some configuration needs to be available directly on the exported object
 const staticConfig = {
-  addons: ["storybook-dark-mode/register"],
   core: {
     builder: "@storybook/builder-vite",
   },
@@ -24,19 +24,48 @@ const staticConfig = {
     name: "@storybook/react-vite",
   },
   async viteFinal(config) {
-    return {
-      ...config,
+    return mergeConfig(config, {
+      plugins: [splitVendorChunkPlugin()],
+      optimizeDeps: {
+        exclude: ["patternfly-backstage-theme"],
+      },
       rollupOptions: {
-        ...config.rollupOptions,
-        external: ["react", "react-dom"],
+        external: ["react", "react-dom", "react-router-dom", "react-is"],
         output: {
           globals: {
             react: "React",
             "react-dom": "ReactDOM",
+            "react-router-dom": "ReactRouterDOM",
+            "react-is": "ReactIs",
+          },
+          manualChunks: {
+            vendor: [
+              "@backstage/core-components",
+              "@backstage/core-plugin-api",
+              "@backstage/plugin-search",
+              "@backstage/plugin-search-common",
+              "@backstage/theme",
+              "@backstage/plugin-search-react",
+              "@mui/base",
+              "@mui/material",
+              "@mui/styled-engine",
+              "@mui/system",
+              "@mui/utils",
+              "@material/core",
+              "@material-ui/core",
+              "@material-ui/icons",
+              "@material-ui/lab",
+              "lodash",
+            ],
           },
         },
       },
-    };
+      server: {
+        watch: {
+          ignored: ["!**/node_modules/patternfly-backstage-theme/**"],
+        },
+      },
+    });
   },
 };
 
@@ -50,7 +79,7 @@ module.exports = Object.assign(({ args }) => {
   const rootPath = process.env.BACKSTAGE_SOURCE_ROOT;
   if (typeof rootPath == "undefined") {
     console.warn(
-      "Set BACKSTAGE_SOURCE_ROOT to the absolute path of your backstage repository clone building or running storybook",
+      "Set BACKSTAGE_SOURCE_ROOT in your environment to the absolute path of your backstage repository clone before building or running storybook",
     );
     process.exit(1);
   }

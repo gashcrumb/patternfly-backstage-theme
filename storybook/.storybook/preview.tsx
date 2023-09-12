@@ -1,35 +1,30 @@
 import React from "react";
+import { MemoryRouter as Router } from "react-router-dom";
 import { Preview } from "@storybook/react";
 import { UnifiedThemeProvider } from "@backstage/theme";
-import { patternflyTheme } from "patternfly-backstage-theme";
-import { CssBaseline } from "@material-ui/core";
+import { getPatternflyTheme } from "patternfly-backstage-theme";
+import { CssBaseline } from "@mui/material";
 import { apis } from "./apis";
 
 import { Content, AlertDisplay } from "@backstage/core-components";
 import { TestApiProvider } from "@backstage/test-utils";
 
-export const preview: Preview = {
+const preview: Preview = {
   decorators: [
     (Story) => (
-      <TestApiProvider apis={apis}>
-        <UnifiedThemeProvider theme={darkTheme}>
-          <CssBaseline>
-            <AlertDisplay />
-            <Content>
-            <pre>hi there</pre>
-              <Story />
-            </Content>
-          </CssBaseline>
-        </UnifiedThemeProvider>
-      </TestApiProvider>
+      <Router>
+        <TestApiProvider apis={apis as any}>
+          <UnifiedThemeProvider theme={getPatternflyTheme() as any}>
+            <CssBaseline>
+              <AlertDisplay />
+              <Content>
+                <Story />
+              </Content>
+            </CssBaseline>
+          </UnifiedThemeProvider>
+        </TestApiProvider>
+      </Router>
     ),
   ],
 };
-
-export const parameters = {
-  options: {
-    storySort: {
-      order: ["Plugins", "Layout", "Navigation"],
-    },
-  },
-};
+export default preview;

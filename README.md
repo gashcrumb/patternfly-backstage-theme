@@ -21,3 +21,8 @@ And to work with storybook, use `npm run storybook`:
 
 Storybook will be available at http://localhost:6006
 
+To develop the theme run:
+
+`npm run dev`
+
+this also requires the aforementioned environment variable in your environment.  This command starts up the theme package in dev mode so it rebuilds on changes and runs storybook in parallel.  Currently it's necessary to manually refresh the browser when making changes in the theme package.

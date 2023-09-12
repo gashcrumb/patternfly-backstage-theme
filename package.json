@@ -1,21 +1,42 @@
 {
-    "name": "patternfly-backstage-theme",
-    "version": "0.0.0",
-    "engines": {
-        "node": ">14.15.0",
-        "npm": ">7.17.0"
-    },
-    "devDependencies": {
-        "npm-run-all": "4.1.5"
-    },
-    "scripts": {
-        "build": "npm run build -ws",
-        "clean": "npx -y rimraf node_modules **/dist/ **/node_modules/ package-lock.json && npm i",
-        "lint": "npm run lint -ws",
-        "storybook": "npm run storybook -w storybook"
-    },
-    "workspaces": [
-        "theme",
-        "storybook"
-    ]
+  "name": "patternfly-backstage-theme",
+  "version": "0.0.0",
+  "engines": {
+    "node": ">14.15.0",
+    "npm": ">7.17.0"
+  },
+  "dependencies": {
+    "@backstage/core-components": "^0.13.4",
+    "@backstage/core-app-api": "^1.9.1",
+    "@backstage/core-plugin-api": "^1.5.3",
+    "@backstage/test-utils": "^1.4.2",
+    "@mui/material": "^5.12.2",
+    "@mui/styles": "^5.14.7",
+    "@material-ui/core": "^4.12.4",
+    "@mui/lab": "^5.0.0-alpha.143",
+    "@patternfly/patternfly": "^5.0.4",
+    "@patternfly/react-tokens": "^5.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.15.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.9",
+    "npm-run-all": "4.1.5",
+    "prettier": "3.0.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  },
+  "scripts": {
+    "build": "npm run build -ws",
+    "clean": "npx -y rimraf node_modules **/dist/ **/node_modules/ package-lock.json",
+    "dev": "npm-run-all --parallel dev-theme storybook",
+    "lint": "npm run lint -ws",
+    "dev-theme": "npm run dev -w theme",
+    "storybook": "npm run storybook -w storybook"
+  },
+  "workspaces": [
+    "theme",
+    "storybook"
+  ]
 }

@@ -66,19 +66,15 @@ import {
   global_warning_color_100,
   global_warning_color_200,
 } from "@patternfly/react-tokens";
-import {
-  BackstageTypography,
-  UnifiedThemeOptions,
-  createUnifiedTheme,
-  themes,
-} from "@backstage/theme";
-import { PaletteOptions } from "@mui/material/styles";
-import { alpha } from "@material-ui/core/styles";
-import { AlertClassKey } from "@material-ui/lab/Alert";
-import { AutocompleteClassKey } from "@material-ui/lab/Autocomplete";
+
+import { AlertClassKey } from "@mui/lab/Alert";
+import { AutocompleteClassKey, PaletteOptions } from "@mui/material";
+import { createUnifiedTheme } from "@backstage/theme";
+
+import "@patternfly/patternfly/patternfly.css";
 
 // Labs types not included in overrides; https://github.com/mui/material-ui/issues/19427
-declare module "@material-ui/core/styles/overrides" {
+declare module "@mui/material/styles/overrides" {
   export interface ComponentNameToClassKey {
     MuiAlert: AlertClassKey;
     MuiAutocomplete: AutocompleteClassKey;
@@ -90,11 +86,11 @@ const htmlFontSize = 16;
 const fontWeight: number = 400;
 const marginBottom: number = 8;
 
-const createThemeFromBasePalette = (basePalette: unknown) => {
+export const createThemeFromBasePalette = () => {
   // All the theme colors
   const palette = {
-    ...(basePalette ? basePalette : {}),
     background: {
+
       default: global_BackgroundColor_100.value,
       paper: c_card_BackgroundColor.value,
     },
@@ -198,7 +194,7 @@ const createThemeFromBasePalette = (basePalette: unknown) => {
           color: global_Color_100.value,
         },
         type: {
-          color: alpha(global_Color_100.value, 0.8),
+          color: "rgba(21, 21, 21, 0.8)",
         },
       },
     },
@@ -502,7 +498,7 @@ const createThemeFromBasePalette = (basePalette: unknown) => {
       fontWeight,
       marginBottom,
     },
-  } as BackstageTypography;
+  };
 
   return {
     components,
@@ -511,9 +507,10 @@ const createThemeFromBasePalette = (basePalette: unknown) => {
     palette,
     // don't fix this spelling :-)
     typeography: typography,
-  } as UnifiedThemeOptions;
+  };
 };
 
-export const patternflyTheme = createUnifiedTheme(
-  createThemeFromBasePalette(themes.light.getTheme("v5")?.palette)
-);
+export const getPatternflyTheme = () =>
+  createUnifiedTheme(createThemeFromBasePalette() as any);
+
+export const patternflyTheme = getPatternflyTheme();

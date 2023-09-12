@@ -1,9 +1,10 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
-import { name } from './package.json';
+import { name } from "./package.json";
 
 import dts from "vite-plugin-dts";
+import checker from "vite-plugin-checker";
 
 export default defineConfig({
   build: {
@@ -12,6 +13,25 @@ export default defineConfig({
       name: name,
       fileName: name,
     },
+    rollupOptions: {
+      external: [
+        "@backstage/theme",
+        "@mui/styles",
+        "@mui/material",
+        "@mui/material/styles",
+        "@mui/lab/Alert",
+        "react",
+        "react-dom",
+        "react-is",
+      ],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+          "react-is": "ReactIs",
+        },
+      },
+    },
   },
-  plugins: [dts()],
+  plugins: [checker({ typescript: true }), dts()],
 });
