@@ -12,18 +12,16 @@ import { TestApiProvider } from "@backstage/test-utils";
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <Router>
-        <TestApiProvider apis={apis as any}>
-          <UnifiedThemeProvider theme={getPatternflyTheme() as any}>
-            <CssBaseline>
-              <AlertDisplay />
-              <Content>
-                <Story />
-              </Content>
-            </CssBaseline>
-          </UnifiedThemeProvider>
-        </TestApiProvider>
-      </Router>
+      <TestApiProvider apis={apis as any}>
+        <UnifiedThemeProvider theme={getPatternflyTheme() as any}>
+          <CssBaseline>
+            <AlertDisplay />
+            <Content>
+              <Story />
+            </Content>
+          </CssBaseline>
+        </UnifiedThemeProvider>
+      </TestApiProvider>
     ),
   ],
 };
