@@ -137,10 +137,10 @@ const palette = {
 /**
  * Theme instance
  */
-export const customLightTheme = createUnifiedTheme({
+export const lightTheme = createUnifiedTheme({
   fontFamily: pageFontFamily,
   palette,
-  defaultPageTheme: 'home',
+  defaultPageTheme: "home",
   pageTheme: createPagesTheme(palette),
   components: createComponentOverrides(palette),
   typography,
