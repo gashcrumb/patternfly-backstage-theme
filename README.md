@@ -2,6 +2,14 @@
 
 This is a POC to create a theme for [Backstage](https://github.com/backstage/backstage) that follows the Patternfly color scheme and layouts as closely as possible.
 
+### Dark Mode
+
+![Dark Screenshot](doc/screenshots/dark.png)
+
+### Light Mode
+
+![Light Screenshot](doc/screenshots/light.png)
+
 Importing this into a backstage app should be a matter of adding:
 
 ```
